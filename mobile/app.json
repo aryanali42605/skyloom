@@ -22,16 +22,36 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "permissions": ["ACCESS_COARSE_LOCATION"]
+      "permissions": [
+        "ACCESS_COARSE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-font",
-      ["expo-splash-screen", { "backgroundColor": "#070a1c", "image": "./assets/splash-icon.png", "imageWidth": 120 }],
-      ["expo-notifications", { "color": "#8f7bff" }],
-      ["expo-location", { "locationWhenInUsePermission": "Skyloom uses your location to add the sky above you to your loom." }]
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#070a1c",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 120
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#8f7bff"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Skyloom uses your location to add the sky above you to your loom."
+        }
+      ],
+      "expo-status-bar"
     ]
   }
 }
