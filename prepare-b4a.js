@@ -7,7 +7,7 @@ const path = require("path");
 
 const ROOT = __dirname;
 const OUT = path.join(ROOT, "b4a-deploy");
-const CLOUD = ["main.js", "package.json"]; // never back4app-env.txt
+const CLOUD = ["main.js", "package.json", "vapid.js"].filter((f) => fs.existsSync(path.join(ROOT, "cloud", f))); // never back4app-env.txt
 const PUBLIC = ["index.html", "styles.css", "config.js", "defaults.js", "sw.js", "manifest.webmanifest", "icon.svg", "js"];
 
 fs.rmSync(OUT, { recursive: true, force: true });

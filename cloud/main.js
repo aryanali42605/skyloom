@@ -1,17 +1,25 @@
 // Skyloom - Back4App Cloud Code
 // Serves both apps: the web app (Web Push, VAPID) and the Expo mobile app (Expo push service).
-// Deploy this folder (main.js + package.json) from Back4App > Cloud Code > Functions & Web Hosting.
-// Environment variables (Server Settings > Environment Variables), needed for the web app's pushes:
-//   VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT (e.g. mailto:you@yourdomain.com)
-// Then schedule the "skyloomDigest" job to run every hour (Server Settings > Background Jobs).
+// Deploy this folder (main.js + package.json + vapid.js) from Back4App > Cloud Code > Functions & Web Hosting.
+// The web app's pushes need VAPID keys: VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT.
+// They are read from environment variables when the host offers them, otherwise from vapid.js
+// (made by `node make-vapid.js`, uploaded only to Back4App's cloud folder, never committed).
+// Then schedule the "skyloomDigest" job to run every hour (Cloud Code > Jobs > Scheduled Jobs).
 
 const webpush = require("web-push");
+
+function vapidKeys() {
+  let file = {};
+  try { file = require("./vapid.js"); } catch (e) {}
+  const pick = (k) => process.env[k] || file[k];
+  return { VAPID_PUBLIC_KEY: pick("VAPID_PUBLIC_KEY"), VAPID_PRIVATE_KEY: pick("VAPID_PRIVATE_KEY"), VAPID_SUBJECT: pick("VAPID_SUBJECT") };
+}
 
 let vapidReady = false;
 function vapid() {
   if (vapidReady) return;
-  const { VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT } = process.env;
-  if (!VAPID_PUBLIC_KEY || !VAPID_PRIVATE_KEY) throw new Parse.Error(141, "VAPID keys are not set in Back4App environment variables.");
+  const { VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT } = vapidKeys();
+  if (!VAPID_PUBLIC_KEY || !VAPID_PRIVATE_KEY) throw new Parse.Error(141, "VAPID keys are missing: upload cloud/vapid.js to Back4App's cloud folder.");
   webpush.setVapidDetails(VAPID_SUBJECT || "mailto:admin@example.com", VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
   vapidReady = true;
 }

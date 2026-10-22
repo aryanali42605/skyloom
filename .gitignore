@@ -6,3 +6,4 @@ b4a-deploy/
 
 node_modules/
 .DS_Store
+cloud/vapid.js
