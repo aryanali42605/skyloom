@@ -1,0 +1,12 @@
+{
+  "name": "Skyloom",
+  "short_name": "Skyloom",
+  "description": "A living sky for every city you care about.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#070a1c",
+  "theme_color": "#0b0f24",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

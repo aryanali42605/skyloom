@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Skyloom",
+    "slug": "skyloom",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "backgroundColor": "#070a1c",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.skyloom.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Skyloom uses your location to add the sky above you to your loom."
+      }
+    },
+    "android": {
+      "package": "com.skyloom.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#070a1c",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": ["ACCESS_COARSE_LOCATION"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font",
+      ["expo-splash-screen", { "backgroundColor": "#070a1c", "image": "./assets/splash-icon.png", "imageWidth": 120 }],
+      ["expo-notifications", { "color": "#8f7bff" }],
+      ["expo-location", { "locationWhenInUsePermission": "Skyloom uses your location to add the sky above you to your loom." }]
+    ]
+  }
+}

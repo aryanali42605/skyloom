@@ -1,0 +1,9 @@
+{
+  "name": "skyloom-cloud",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Back4App Cloud Code for Skyloom: city ownership rules, web push digests and alerts.",
+  "dependencies": {
+    "web-push": "3.6.7"
+  }
+}
