@@ -102,14 +102,16 @@ For extra safety, open **Database → City → Security (CLP)** and disable publ
    npx web-push generate-vapid-keys
    ```
 2. Put the **public** key into `config.js` → `vapidPublicKey`.
-3. In Back4App, go to **App Settings → Server Settings → Environment Variables** and add:
+3. Save all three values in `cloud/back4app-env.txt`:
    ```
    VAPID_PUBLIC_KEY=<public key>
    VAPID_PRIVATE_KEY=<private key>
-   VAPID_SUBJECT=mailto:you@yourdomain.com
+   VAPID_SUBJECT=https://<your site>/   (or mailto:you@yourdomain.com)
    ```
-4. Go to **Cloud Code → Functions & Web Hosting**, upload `cloud/main.js` and `cloud/package.json` into the `cloud` folder, and click **Deploy**.
-5. Go to **App Settings → Server Settings → Background Jobs → Schedule a job**, pick `skyloomDigest` and set it to run **every hour**.
+   then run `node make-vapid.js` to create `cloud/vapid.js`. Both files are git-ignored.
+   Back4App's current dashboard has no environment-variable page, so Cloud Code reads the keys from `vapid.js`. It still prefers real environment variables when a host provides them.
+4. Run `node prepare-b4a.js`. Then go to **Cloud Code → Functions & Web Hosting** and upload `b4a-deploy/cloud/main.js`, `package.json` and `vapid.js` into the `cloud` folder. Back4App won't overwrite `main.js`, so if it already exists, open it and paste the new contents instead. Click **Deploy**.
+5. Go to **Cloud Code → Jobs → Scheduled Jobs → Schedule a job**. Pick `skyloomDigest`, set **Repeat** to **On an interval** every **1 Hour**, and click **Schedule**. The free plan allows one scheduled job.
 
 How it works:
 - When you turn on *Daily sky digest* in Settings, the browser creates a push subscription and the app saves it with the Cloud Function `savePushSubscription`. The save includes your chosen hour, timezone, units and alert preference.
